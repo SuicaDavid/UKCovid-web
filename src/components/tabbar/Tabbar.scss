@@ -1,0 +1,48 @@
+.tab-view {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-flow: column;
+
+  .tab-page-view {
+    flex: 1;
+  }
+
+  .tabbar-row {
+    width: 100vw;
+    height: 60px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+
+    .tab-item {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-content: center;
+
+      .tab-item-icon {
+        width: 60px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      .tab-item-name {
+        text-align: center;
+      }
+      .tab-item-name-selected{
+        color: #dddddd;
+      }
+    }
+  }
+}

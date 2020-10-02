@@ -9,7 +9,7 @@ export default class Tabbar extends Component {
     state = {
         currentIndex: 0
     }
-    
+
 
     changeTab(index) {
         this.setState({currentIndex: index})

@@ -5,12 +5,17 @@
   flex-flow: column;
 
   .tab-page-view {
+    display: flex;
     flex: 1;
   }
 
   .tabbar-row {
     width: 100vw;
     height: 60px;
+    position: fixed;
+    bottom: 0;
+    z-index: 999;
+    background-color: white;
     border-top: 1px solid #ddd;
     display: flex;
     justify-content: space-around;

@@ -28,6 +28,5 @@ function convertQueryString(parameter) {
     for (let key in parameter) {
         queryString += `${key}=${parameter[key]}&`
     }
-    console.log(queryString)
     return queryString.substr(0, queryString.length - 1)
 }

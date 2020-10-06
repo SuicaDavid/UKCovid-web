@@ -1,0 +1,57 @@
+$element-span: 10px;
+$button-radius: 10px;
+.search-view {
+  width: 100vw;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+
+  .search-button-view {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dddddd;
+    border-radius: $button-radius;
+    padding: $element-span;
+
+    .search-button-text {
+      height: 50px;
+      padding: 0 $element-span;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-icon {
+      height: 25px;
+      width: 25px;
+    }
+  }
+
+  .search-current-city-view {
+    width: 100vw;
+    display: flex;
+    flex-flow: column;
+    .search-current-city-name {
+      text-align: center;
+    }
+
+    .search-current-city-cases {
+      display: flex;
+      justify-content: space-around;
+
+      >div{
+        text-align: center;
+        >h4{
+          padding-bottom: 3px;
+          padding-left: 5px;
+          padding-right: 5px;
+          border-bottom: 1px solid #0000ff;
+        }
+        >h3{
+          color: #0000ff;
+        }
+      }
+    }
+  }
+}

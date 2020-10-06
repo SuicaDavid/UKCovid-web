@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import './App.css'
 import Tabbar from './components/tabbar/Tabbar'
 import Home from './pages/Home'
+import Search from './pages/Search'
 import homeIcon from './assets/home.png'
 import homeIcon2 from './assets/home_2.png'
 import searchIcon from './assets/search.png'
@@ -20,7 +21,7 @@ class App extends Component {
                 name: 'search',
                 icon: searchIcon,
                 selectedIcon: searchIcon2,
-                page: <div>search</div>
+                page: <Search/>
             }
         ]
     }

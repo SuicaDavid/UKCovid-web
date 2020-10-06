@@ -7,7 +7,7 @@ export default class Tabbar extends Component {
         pages: []
     }
     state = {
-        currentIndex: 0
+        currentIndex: 1
     }
 
 

@@ -1,37 +1,99 @@
 $element-span: 10px;
-$button-radius: 10px;
+$border-radius: 10px;
+$border-color: #00000f;
+$screen-width: 100vw;
+$search-bar-lag: 50px;
+$search-bar-changing-time: 1s;
+@keyframes search-bg-changing {
+  from {
+    background-color: #ffffff;
+  }
+  to {
+    background-color: #101010;
+  }
+}
+
+@keyframes search-input-changing {
+  from {
+    margin: 0 $search-bar-lag;
+  }
+  to {
+    margin: 0 0;
+  }
+}
+
 .search-view {
-  width: 100vw;
+  width: $screen-width;
   display: flex;
   flex-flow: column;
   justify-content: space-around;
   align-items: center;
 
-  .search-button-view {
-    display: flex;
-    align-items: center;
-    border: 1px solid #dddddd;
-    border-radius: $button-radius;
-    padding: $element-span;
-
-    .search-button-text {
-      height: 50px;
-      padding: 0 $element-span;
-      flex: 1;
+  > div {
+    width: $screen-width;
+    &.search-input-view {
       display: flex;
-      align-items: center;
     }
 
-    .search-icon {
-      height: 25px;
-      width: 25px;
+    &.search-input-view-selected {
+      height: 100vh;
+      position: fixed;
+      z-index: 99999;
+      background-color: #101010;
+      animation-name: search-bg-changing;
+      animation-duration: $search-bar-changing-time;
+    }
+
+    div {
+      &.search-input-container {
+        height: 50px;
+        position: relative;
+        display: flex;
+        flex: 1;
+        margin: 0 $search-bar-lag;
+      }
+      &.search-input-container-selected {
+        height: 50px;
+        position: relative;
+        display: flex;
+        flex: 1;
+        margin: 0 0;
+        animation-name: search-input-changing;
+        animation-duration: $search-bar-changing-time;
+      }
+
+      input[class=search-input-text] {
+        height: 50px;
+        font-size: 16px;
+        border: 1px solid #dddddd;
+        border-radius: $border-radius;
+        padding: $element-span 45px $element-span $element-span*2;
+        flex: 1;
+        display: flex;
+        align-items: center;
+
+        &::placeholder {
+          text-align: center;
+          color: #00000f;
+        }
+      }
+
+      .search-icon {
+        height: 25px;
+        width: 25px;
+        position: absolute;
+        top: 22.5px;
+        right: $element-span;
+      }
     }
   }
+
 
   .search-current-city-view {
     width: 100vw;
     display: flex;
     flex-flow: column;
+
     .search-current-city-name {
       text-align: center;
     }
@@ -39,17 +101,24 @@ $button-radius: 10px;
     .search-current-city-cases {
       display: flex;
       justify-content: space-around;
+      margin-right: 25px;
+      margin-left: 25px;
+      border-top: 1px solid $border-color;
+      border-bottom: 1px solid $border-color;
+      border-radius: $border-radius;
 
-      >div{
+      > div {
         text-align: center;
-        >h4{
+
+        > h4 {
           padding-bottom: 3px;
           padding-left: 5px;
           padding-right: 5px;
-          border-bottom: 1px solid #0000ff;
+          border-bottom: 1px solid $border-color;
         }
-        >h3{
-          color: #0000ff;
+
+        > h3 {
+          color: $border-color;
         }
       }
     }

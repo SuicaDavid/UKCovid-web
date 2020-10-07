@@ -6,15 +6,26 @@ import './Search.scss'
 
 export default class Search extends Component {
 
+    state = {
+        isSearching: false
+    }
+    constructor() {
+        super();
+        this.onClickSearchInput = this.onClickSearchInput.bind(this)
+    }
 
+    onClickSearchInput(e) {
+        console.log(e.target.className)
+        this.setState({isSearching: !this.state.isSearching})
+    }
     render() {
         return (
             <div className="search-view">
-                <div className="search-button-view">
-                    <div className="search-button-text">
-                        Input your city
+                <div className={`${this.state.isSearching ? 'search-input-view-selected' : 'search-input-view'}`} onClick={this.onClickSearchInput}>
+                    <div className={`search-input-container`}>
+                        <input type="text" placeholder="Input your city" className="search-input-text" disabled={!this.state.isSearching}/>
+                        <img src={searchIcon} alt="search icon" className="search-icon"/>
                     </div>
-                    <img src={searchIcon} alt="search icon" className="search-icon"/>
                 </div>
                 <div className="search-current-city-view">
                     <h2 className="search-current-city-name">London</h2>

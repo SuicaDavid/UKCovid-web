@@ -13,14 +13,14 @@ class App extends Component {
         pages: [
             {
                 name: 'home',
-                icon: homeIcon,
-                selectedIcon: homeIcon2,
+                icon: homeIcon2,
+                selectedIcon: homeIcon,
                 page: <Home/>
             },
             {
                 name: 'search',
-                icon: searchIcon,
-                selectedIcon: searchIcon2,
+                icon: searchIcon2,
+                selectedIcon: searchIcon,
                 page: <Search/>
             }
         ]

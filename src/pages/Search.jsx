@@ -35,6 +35,11 @@ export default class Search extends Component {
                                    disabled={!this.state.isSearching}/>
                             <img src={searchIcon} alt="search icon" className="search-icon"/>
                         </div>
+                        {
+                            this.state.isSearching ? [].map(item=>{
+                                return <div>{item}</div>
+                            }): ''
+                        }
                     </div>
                 </div>
                 <div className="search-view-row">

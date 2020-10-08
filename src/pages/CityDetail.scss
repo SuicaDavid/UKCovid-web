@@ -1,0 +1,37 @@
+$nav-bar-height: 50px;
+$element-span: 10px;
+$border-radius: 10px;
+$border-color: #00000f;
+$screen-width: 100vw;
+$screen-height: 100vh;
+.city-detail-view {
+  display: flex;
+  flex-flow: column;
+  margin-top: $nav-bar-height;
+
+  .city-detail-nav-bar {
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: $screen-width;
+    border-bottom: 1px solid #dddddd;
+
+    .city-detail-nav-back {
+      width: 25px;
+      height: 25px;
+      padding: $element-span;
+    }
+
+    .city-detail-nav-title {
+      font-size: 18px;
+    }
+
+    .city-detail-nav-detail {
+      width: 25px;
+      height: 25px;
+      padding: $element-span;
+    }
+  }
+}

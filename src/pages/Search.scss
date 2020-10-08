@@ -82,7 +82,7 @@ $search-bar-changing-time: .5s;
       }
     }
 
-    > div {
+    div[class=search-current-city-view] {
       &.search-current-city-view {
         width: $screen-width;
         display: flex;

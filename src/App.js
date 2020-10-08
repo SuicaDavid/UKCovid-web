@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+// eslint-disable-next-line no-unused-vars
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import './App.css'
 import Tabbar from './components/tabbar/Tabbar'
 import Home from './pages/Home'
@@ -7,6 +9,7 @@ import homeIcon from './assets/home.png'
 import homeIcon2 from './assets/home_2.png'
 import searchIcon from './assets/search.png'
 import searchIcon2 from './assets/search_2.png'
+import CityDetail from "./pages/CityDetail"
 
 class App extends Component {
     state = {
@@ -25,11 +28,21 @@ class App extends Component {
             }
         ]
     }
+
     render() {
         return (
-            <div className="App">
-                <Tabbar pages={this.state.pages}/>
-            </div>
+            <Router>
+                <div className="App">
+                    <Switch>
+                        <Route exact path='/'>
+                            <Tabbar pages={this.state.pages}/>
+                        </Route>
+                        <Route path="/cityDetail">
+                            <CityDetail/>
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>
         )
     }
 }

@@ -3,6 +3,8 @@ import ApiManagement from "../api/ApiManagement"
 import searchIcon from "../assets/search.png"
 import searchIcon2 from "../assets/search_2.png"
 import './Search.scss'
+import {Link} from "react-router-dom"
+import PureLink from "../components/link/PureLink"
 
 export default class Search extends Component {
 
@@ -43,19 +45,21 @@ export default class Search extends Component {
                     </div>
                 </div>
                 <div className="search-view-row">
-                    <div className="search-current-city-view">
-                        <h2 className="search-current-city-name">London</h2>
-                        <div className="search-current-city-cases">
-                            <div className="search-current-city-today-cases">
-                                <h4>cases today</h4>
-                                <h3>1000</h3>
-                            </div>
-                            <div className="search-current-city-total-cases">
-                                <h4>cases total</h4>
-                                <h3>10000</h3>
+                    <PureLink to={`/cityDetail`}>
+                        <div className="search-current-city-view">
+                            <h2 className="search-current-city-name">London</h2>
+                            <div className="search-current-city-cases">
+                                <div className="search-current-city-today-cases">
+                                    <h4>cases today</h4>
+                                    <h3>1000</h3>
+                                </div>
+                                <div className="search-current-city-total-cases">
+                                    <h4>cases total</h4>
+                                    <h3>10000</h3>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </PureLink>
                 </div>
             </div>
         )

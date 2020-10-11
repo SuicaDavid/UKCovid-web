@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import ApiManagement from "../api/ApiManagement"
 import './Home.scss'
+import DataManagement from "../data/DataManagement"
 
 export default class Home extends Component {
 
@@ -10,19 +11,20 @@ export default class Home extends Component {
         deathList: []
     }
 
+    constructor() {
+        super()
+    }
 
     componentDidMount() {
         this.updateCase()
     }
 
     updateCase() {
-        new ApiManagement().getCasesData('new_cases', 15, 1)
-            .then(data => {
-                console.log(data)
-                this.setState({caseList: data})
-            })
-            .catch(err=>{
-                console.log(err)
+        DataManagement.fetchCityCaseRange()
+            .then(() => {
+                this.setState({
+                    caseList: DataManagement.getCityCaseRange()
+                })
             })
     }
 
@@ -52,8 +54,11 @@ export default class Home extends Component {
                     {dataList.map((city, index) => {
                         return (
                             <li className="case-rank-item" key={city.areaCode}>
-                                <div className="case-rank-name">{index + 1}: {city.areaName}</div>
-                                <div className="case-rank-number">New Case: {city.newCasesByPublishDate}</div>
+                                <p className="case-rank-ranking">{index + 1}: </p>
+                                <div className="case-rank-data">
+                                    <p className="case-rank-name">{city.areaName}</p>
+                                    <p className="case-rank-number">{city.newCases}</p>
+                                </div>
                             </li>
                         )
                     })}

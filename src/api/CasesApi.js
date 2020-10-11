@@ -1,3 +1,4 @@
 export default {
-    'newCases': '/newcases'
+    'newCases': '/newcases',
+    'searchCase': '/newcases'
 }

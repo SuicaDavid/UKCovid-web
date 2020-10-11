@@ -10,6 +10,7 @@ import homeIcon2 from './assets/home_2.png'
 import searchIcon from './assets/search.png'
 import searchIcon2 from './assets/search_2.png'
 import CityDetail from "./pages/CityDetail"
+import DataManagement from "./data/DataManagement"
 
 class App extends Component {
     state = {
@@ -27,6 +28,9 @@ class App extends Component {
                 page: <Search/>
             }
         ]
+    }
+
+    componentDidMount() {
     }
 
     render() {

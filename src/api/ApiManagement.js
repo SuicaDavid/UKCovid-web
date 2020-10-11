@@ -21,6 +21,16 @@ export default class ApiManagement {
             throw new Error(statusText)
         return data
     }
+
+
+    async getCaseByPostcode(postcode) {
+        let parameter = {postcode}
+        const url = path + CasesApi.searchCase + convertQueryString(parameter)
+        const {data, status, statusText} = await axios.get(url, {timeout: 10000})
+        if (status >= 400)
+            throw new Error(statusText)
+        return data
+    }
 }
 
 function convertQueryString(parameter) {

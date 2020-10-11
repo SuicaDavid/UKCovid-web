@@ -5,6 +5,7 @@ import searchIcon2 from "../assets/search_2.png"
 import './Search.scss'
 import {Link} from "react-router-dom"
 import PureLink from "../components/link/PureLink"
+import postcodeData from "../static/postcode.json"
 
 export default class Search extends Component {
 
@@ -15,6 +16,7 @@ export default class Search extends Component {
     constructor() {
         super()
         this.onClickSearchInput = this.onClickSearchInput.bind(this)
+        console.log(postcodeData)
     }
 
     onClickSearchInput(e) {
@@ -23,6 +25,14 @@ export default class Search extends Component {
             return
         }
         this.setState({isSearching: !this.state.isSearching})
+    }
+
+    onSearch(e) {
+        e.stopPropagation()
+        ApiManagement.getCaseByPostcode('W1 111')
+            .then(data => {
+                console.log('search: ', data)
+            })
     }
 
     render() {
@@ -35,12 +45,12 @@ export default class Search extends Component {
                             className={this.state.isSearching ? 'search-input-container-selected' : 'search-input-container'}>
                             <input type="text" placeholder="Input your city" className="search-input-text"
                                    disabled={!this.state.isSearching}/>
-                            <img src={searchIcon} alt="search icon" className="search-icon"/>
+                            <img src={searchIcon} alt="search icon" className="search-icon" onClick={this.onSearch.bind(this)}/>
                         </div>
                         {
-                            this.state.isSearching ? [].map(item=>{
+                            this.state.isSearching ? [].map(item => {
                                 return <div>{item}</div>
-                            }): ''
+                            }) : ''
                         }
                     </div>
                 </div>

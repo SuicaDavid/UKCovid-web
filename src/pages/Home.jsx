@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ApiManagement from "../api/ApiManagement"
 import './Home.scss'
 import DataManagement from "../data/DataManagement"
 
@@ -11,9 +10,6 @@ export default class Home extends Component {
         deathList: []
     }
 
-    constructor() {
-        super()
-    }
 
     componentDidMount() {
         this.updateCase()

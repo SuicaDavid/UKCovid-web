@@ -16,15 +16,19 @@ $screen-height: 100vh;
 
     .detail-page-view-city-cases {
       display: flex;
+      flex: 1;
       justify-content: space-around;
+      flex-wrap: wrap;
       margin-right: 25px;
       margin-left: 25px;
       border-top: 1px solid $border-color;
       border-bottom: 1px solid $border-color;
       border-radius: $border-radius;
-      .div {
-        text-align: center;
 
+      .detail-page-view-city-data {
+        text-align: center;
+        margin: 0 $element-span;
+        width: calc(50% - 20px);
         > h4 {
           padding-bottom: 3px;
           padding-left: 5px;

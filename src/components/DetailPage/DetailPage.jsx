@@ -18,9 +18,9 @@ export default class DetailPage extends Component {
     }
 
     getDataComponent(data) {
-        return data.map(item=>{
+        return data.map((item, index) => {
             return (
-                <div className="detail-page-view-city-data">
+                <div className="detail-page-view-city-data" key={index}>
                     <h4>{item.dataName}</h4>
                     <h3>{item.figure}</h3>
                 </div>

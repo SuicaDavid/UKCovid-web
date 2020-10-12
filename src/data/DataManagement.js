@@ -3,11 +3,37 @@ import ApiManagement from "../api/ApiManagement"
 class DataManagement {
     ApiManager
     _cityCaseRange = []
+    _currentPosition
+    _currentPostcode
     _currentCityData = {}
 
     constructor() {
         this.ApiManager = new ApiManagement()
     }
+
+    getLocation() {
+        return new Promise((resolve,reject)=>{
+            navigator.geolocation.getCurrentPosition(position => {
+                console.log(position)
+                this._currentPosition = position
+                resolve(position)
+            }, err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    }
+
+    getPostcode(position) {
+        return this.ApiManager.getPostcode(position.coords.longitude, position.coords.latitude)
+            .then(data => {
+                console.log(data)
+                if(data && data.result && data.result.length>0) {
+                    this._currentPostcode = data.result[0].postcode
+                }
+            })
+    }
+
 
     setCityCaseRange(cityRange) {
         this._cityCaseRange = cityRange

@@ -1,23 +1,45 @@
 import React, {Component} from 'react'
 import ApiManagement from "../api/ApiManagement"
 import searchIcon from "../assets/search.png"
-import searchIcon2 from "../assets/search_2.png"
 import './Search.scss'
-import {Link} from "react-router-dom"
 import PureLink from "../components/link/PureLink"
-import postcodeData from "../static/postcode.json"
+import DataManagement from "../data/DataManagement"
+import DetailPage from "../components/DetailPage/DetailPage"
 
 export default class Search extends Component {
 
     state = {
-        isSearching: false
+        isSearching: false,
+        currentCityData: {
+            areaCode: '-- ---',
+            areaName: '------',
+            cumCases: 0,
+            cumDeaths: 0,
+            date: new Date('YYYY-MM-SS'),
+            newCases: 0,
+            newDeaths: 0
+        }
     }
 
-    constructor() {
-        super()
-        this.onClickSearchInput = this.onClickSearchInput.bind(this)
-        console.log(postcodeData)
+
+    componentDidMount() {
+        this.initCurrentCityData()
     }
+
+    async initCurrentCityData() {
+        await DataManagement.getLocation()
+        await DataManagement.getPostcode(DataManagement._currentPosition)
+        await DataManagement.fetchCurrentCityData(DataManagement._currentPostcode)
+            .then(() => {
+                let data = DataManagement._currentCityData
+                if (data && data[0]) {
+                    this.setState({
+                        currentCityData: data[0]
+                    })
+                }
+            })
+    }
+
 
     onClickSearchInput(e) {
         e.stopPropagation()
@@ -36,6 +58,7 @@ export default class Search extends Component {
     }
 
     render() {
+        const {currentCityData} = this.state
         return (
             <div className="search-view">
                 <div className="search-view-row">
@@ -45,7 +68,8 @@ export default class Search extends Component {
                             className={this.state.isSearching ? 'search-input-container-selected' : 'search-input-container'}>
                             <input type="text" placeholder="Input your city" className="search-input-text"
                                    disabled={!this.state.isSearching}/>
-                            <img src={searchIcon} alt="search icon" className="search-icon" onClick={this.onSearch.bind(this)}/>
+                            <img src={searchIcon} alt="search icon" className="search-icon"
+                                 onClick={this.onSearch.bind(this)}/>
                         </div>
                         {
                             this.state.isSearching ? [].map(item => {
@@ -56,19 +80,27 @@ export default class Search extends Component {
                 </div>
                 <div className="search-view-row">
                     <PureLink to={`/cityDetail`}>
-                        <div className="search-current-city-view">
-                            <h2 className="search-current-city-name">London</h2>
-                            <div className="search-current-city-cases">
-                                <div className="search-current-city-today-cases">
-                                    <h4>cases today</h4>
-                                    <h3>1000</h3>
-                                </div>
-                                <div className="search-current-city-total-cases">
-                                    <h4>cases total</h4>
-                                    <h3>10000</h3>
-                                </div>
-                            </div>
-                        </div>
+                        <DetailPage
+                            cityName={currentCityData.areaName}
+                            data={[
+                                {
+                                    dataName: 'cases today',
+                                    figure: currentCityData.newCases
+                                },
+                                {
+                                    dataName: 'cases total',
+                                    figure: currentCityData.cumCases
+                                },
+                                {
+                                    dataName: 'deaths today',
+                                    figure: currentCityData.newDeaths
+                                },
+                                {
+                                    dataName: 'deaths total',
+                                    figure: currentCityData.cumDeaths
+                                },
+                            ]}
+                        />
                     </PureLink>
                 </div>
             </div>

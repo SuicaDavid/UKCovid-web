@@ -1,6 +1,7 @@
 import path from '../static/server'
 import axios from 'axios'
 import CasesApi from "./CasesApi"
+import PostcodeApi from "./PostcodeApi"
 
 const SortBy = {
     'newCase': Symbol('new_cases'),
@@ -8,6 +9,15 @@ const SortBy = {
 }
 
 export default class ApiManagement {
+    async getPostcode(longitude, latitude) {
+        let parameter = {longitude, latitude}
+        const url = PostcodeApi + convertQueryString(parameter)
+        const {data, status, statusText} = await axios.get(url, {timeout: 10000})
+        if (status >= 400)
+            throw new Error(statusText)
+        return data
+    }
+
     async getCasesData(sortBy = SortBy.newCase, casesPerPage, numberOfPage, order = 0) {
         let parameter = {
             'sortby': sortBy,

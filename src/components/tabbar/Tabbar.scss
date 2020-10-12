@@ -1,16 +1,13 @@
 .tab-view {
-  min-height: 100vh;
+  max-height: calc(100vh - 61px);
   width: 100vw;
   display: flex;
   flex-flow: column;
+  overflow: auto;
 
   .tab-page-view {
     display: flex;
     flex: 1;
-  }
-  .tabbar-occupied-space{
-    width: 100vw;
-    height: 61px;
   }
 
   .tabbar-row {

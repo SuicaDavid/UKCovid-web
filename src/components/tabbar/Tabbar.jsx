@@ -40,7 +40,6 @@ export default class Tabbar extends Component {
                 <div className="tab-page-view">
                     {page}
                 </div>
-                <div className="tabbar-occupied-space"/>
                 <div className="tabbar-row">
                     {tabbarList}
                 </div>

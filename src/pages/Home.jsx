@@ -13,6 +13,7 @@ export default class Home extends Component {
 
     componentDidMount() {
         this.updateCase()
+        this.updateDeath()
     }
 
     updateCase() {
@@ -22,10 +23,18 @@ export default class Home extends Component {
                     caseList: DataManagement.getCityCaseRange()
                 })
             })
+            .catch(err=>{
+                console.log(err)
+            })
     }
 
     updateDeath() {
-
+        DataManagement.fetchCityDeathRange()
+            .then(()=>{
+                this.setState({
+                    deathList: DataManagement.getCityDeathRange()
+                })
+            })
     }
 
     changeList(listIndex) {
@@ -35,12 +44,15 @@ export default class Home extends Component {
     getListComponent() {
         let dataList = []
         let listName = ''
+        let showingData = 'newCases'
         if (this.state.selectedList === 0) {
             dataList = this.state.caseList
             listName = 'Cases'
+            showingData = 'newCases'
         } else if (this.state.selectedList === 1) {
             dataList = this.state.deathList
             listName = 'Death'
+            showingData = 'newDeaths'
         }
         console.log(listName)
         return (
@@ -53,7 +65,7 @@ export default class Home extends Component {
                                 <p className="case-rank-ranking">{index + 1}: </p>
                                 <div className="case-rank-data">
                                     <p className="case-rank-name">{city.areaName}</p>
-                                    <p className="case-rank-number">{city.newCases}</p>
+                                    <p className="case-rank-number">{city[showingData]}</p>
                                 </div>
                             </li>
                         )

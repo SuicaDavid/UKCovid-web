@@ -4,8 +4,17 @@ import CasesApi from "./CasesApi"
 import PostcodeApi from "./PostcodeApi"
 
 const SortBy = {
-    'newCase': Symbol('new_cases'),
-    'area_name': Symbol('area_name')
+    'newCases': 'new_cases',
+    'totalCases': 'cum_cases',
+    'newDeaths': 'new_deaths',
+    'totalDeaths': 'cum_deaths',
+    'areaName': 'area_name',
+}
+
+function errorHandler(data) {
+    if(data.errors) {
+        throw new Error(data.errors.query.sortby[0])
+    }
 }
 
 export default class ApiManagement {
@@ -15,10 +24,11 @@ export default class ApiManagement {
         const {data, status, statusText} = await axios.get(url, {timeout: 10000})
         if (status >= 400)
             throw new Error(statusText)
+        errorHandler(data)
         return data
     }
 
-    async getCasesData(sortBy = SortBy.newCase, casesPerPage, numberOfPage, order = 0) {
+    async getCasesData(casesPerPage, numberOfPage, sortBy = SortBy.newCases, order = 1) {
         let parameter = {
             'sortby': sortBy,
             'order': order,
@@ -29,8 +39,24 @@ export default class ApiManagement {
         const {data, status, statusText} = await axios.get(url, {timeout: 10000})
         if (status >= 400)
             throw new Error(statusText)
+        errorHandler(data)
         return data
     }
+    async getDeathsData(casesPerPage, numberOfPage, sortBy = SortBy.newDeaths, order = 1) {
+        let parameter = {
+            'sortby': sortBy,
+            'order': order,
+            'numperpage': casesPerPage,
+            'pageno': numberOfPage
+        }
+        const url = path + CasesApi.newCases + convertQueryString(parameter)
+        const {data, status, statusText} = await axios.get(url, {timeout: 10000})
+        if (status >= 400)
+            throw new Error(statusText)
+        errorHandler(data)
+        return data
+    }
+
 
 
     async getCaseByPostcode(postcode) {
@@ -39,6 +65,7 @@ export default class ApiManagement {
         const {data, status, statusText} = await axios.get(url, {timeout: 10000})
         if (status >= 400)
             throw new Error(statusText)
+        errorHandler(data)
         return data
     }
 }

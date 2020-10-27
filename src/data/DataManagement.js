@@ -3,6 +3,7 @@ import ApiManagement from "../api/ApiManagement"
 class DataManagement {
     ApiManager
     _cityCaseRange = []
+    _cityDeathRange = []
     _currentPosition
     _currentPostcode
     _currentCityData = {}
@@ -12,7 +13,7 @@ class DataManagement {
     }
 
     getLocation() {
-        return new Promise((resolve,reject)=>{
+        return new Promise((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(position => {
                 console.log(position)
                 this._currentPosition = position
@@ -28,7 +29,7 @@ class DataManagement {
         return this.ApiManager.getPostcode(position.coords.longitude, position.coords.latitude)
             .then(data => {
                 console.log(data)
-                if(data && data.result && data.result.length>0) {
+                if (data && data.result && data.result.length > 0) {
                     this._currentPostcode = data.result[0].postcode
                 }
             })
@@ -42,9 +43,16 @@ class DataManagement {
     getCityCaseRange() {
         return this._cityCaseRange
     }
+    setCityDeathRange(cityRange) {
+        this._cityDeathRange = cityRange
+    }
+
+    getCityDeathRange() {
+        return this._cityDeathRange
+    }
 
     fetchCityCaseRange() {
-        return this.ApiManager.getCasesData('new_cases', 15, 1)
+        return this.ApiManager.getCasesData(15, 1)
             .then(data => {
                 console.log(data)
                 this.setCityCaseRange(data)
@@ -53,6 +61,17 @@ class DataManagement {
                 console.log(err)
             })
     }
+    fetchCityDeathRange() {
+        return this.ApiManager.getDeathsData(15, 1)
+            .then(data => {
+                console.log(data)
+                this.setCityDeathRange(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
 
     setCurrentCityData(currentCityData) {
         this._currentCityData = currentCityData
